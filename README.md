@@ -10,10 +10,7 @@ STOP_THRESHOLD = 1e-4
 CLUSTER_THRESHOLD = 1e-1
 
 def distance(a, b, metric = 'euclidean'):
-    if(metric == 'euclidean'):
-        return np.linalg.norm(np.array(a) - np.array(b))
-    else:
-        return Exception(metric + ' distance has not been implemented yet.')
+    return np.linalg.norm(np.array(a) - np.array(b))
 
 def gaussian_kernel(distance, bandwidth):
     return (1 / (bandwidth * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((distance / bandwidth)) ** 2)
