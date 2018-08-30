@@ -9,7 +9,7 @@ import random
 STOP_THRESHOLD = 1e-4
 CLUSTER_THRESHOLD = 1e-1
 
-def distance(a, b, metric = 'euclidean'):
+def distance(a, b):
     return np.linalg.norm(np.array(a) - np.array(b))
 
 def gaussian_kernel(distance, bandwidth):
@@ -43,15 +43,15 @@ class MeanShift(object):
     def _shift_point(self, point, points, kernel_bandwidth):
         shift_x = 0.0
         shift_y = 0.0
-        scale_factor = 0.0
+        scale = 0.0
         for p in points:
             dist = distance(point, p)
             weight = self.kernel(dist, kernel_bandwidth)
             shift_x += p[0] * weight
             shift_y += p[1] * weight
-            scale_factor += weight
-        shift_x = shift_x / scale_factor
-        shift_y = shift_y / scale_factor
+            scale += weight
+        shift_x = shift_x / scale
+        shift_y = shift_y / scale
         return [shift_x, shift_y]
 
     def _cluster_points(self, points):
